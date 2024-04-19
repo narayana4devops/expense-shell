@@ -10,7 +10,7 @@ log_file=/tmp/$script_name-$timestamp.log
 #echo "time: $timestamp"
 #echo "script_name: $script_name"
 echo "Script execution started at:$timestamp" &>> $log_file
-echo ""
+echo -e "\n"
 
 # Variables for colors
 R="\e[31m"
@@ -40,7 +40,7 @@ validate(){
 dnf list installed mysql-server &>> $log_file
 if [ $? -eq 0 ]
 then
-    echo -e "$i Already Installed...$Y SKIPPING $N" 
+    echo -e "mysql-server Already Installed...$Y SKIPPING $N" 
 else
     dnf install mysql-server -y &>> $log_file
     validate $? "Installation of mysql-server is"
@@ -56,7 +56,5 @@ validate $? "start of mysql-server is"
 
 mysql_secure_installation --set-root-pass ExpenseApp@1
 
-
-
-echo ""
+echo -e "\n"
 echo "Script execution completed at:$timestamp" &>> $log_file
