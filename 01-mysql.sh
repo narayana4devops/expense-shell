@@ -18,6 +18,9 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+echo "Please enter DB password:"
+read -s mysql_root_password
+
 if [ $user_id -ne 0 ]
 then
     echo "Please run this script with root access."
@@ -53,8 +56,16 @@ systemctl start mysqld &>> $log_file
 validate $? "start of mysql-server is"
 
 #We need to change the default root password in order to start using the database service.
+#mysql_secure_installation --set-root-pass ExpenseApp@1
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
+#Below code will be useful for idempotent nature
+mysql -h db.daws78s1.online -uroot -pExpenseApp@1 -e 'show databases;' &>> $log_file
+if [ $? -eq 0 ]
+then
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$log_file
+    validate $? "MySQL Root password Setup"
+else
+    echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
 
 echo -e "\n"
 echo "Script execution completed at:$timestamp" &>> $log_file
