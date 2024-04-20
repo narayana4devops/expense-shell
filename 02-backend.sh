@@ -72,14 +72,16 @@ rm -rf /app/*
 unzip /tmp/backend.zip &>>$log_file
 validate $? "Extracted backend code"
 
-dnf list installed npm &>>$log_file
-if [ $? -eq 0 ]
-then
-    echo -e "npm Already Installed...$Y SKIPPING $N" 
-else
-    dnf install npm -y &>> $log_file
-    validate $? "Installation of npm is"
-fi
+#dnf list installed npm &>>$log_file
+#if [ $? -eq 0 ]
+#then
+#    echo -e "npm Already Installed...$Y SKIPPING $N" 
+#else
+#    dnf install npm -y &>> $log_file
+#    validate $? "Installation of npm is"
+#fi
+npm install &>>$log_file
+validate $? "Installing nodejs dependencies"
 
 #check your repo and path
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>> $log_file
