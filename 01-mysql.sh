@@ -66,6 +66,7 @@ then
     validate $? "MySQL Root password Setup"
 else
     echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
+fi
 
 echo -e "\n"
 echo "Script execution completed at:$timestamp" &>> $log_file
