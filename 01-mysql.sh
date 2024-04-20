@@ -44,7 +44,7 @@ then
 else
     dnf install mysql-server -y &>> $log_file
     validate $? "Installation of mysql-server is"
-
+fi
 
 systemctl enable mysqld &>> $log_file
 validate $? "enable of mysql-server is"
