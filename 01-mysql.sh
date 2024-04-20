@@ -60,7 +60,7 @@ validate $? "start of mysql-server is"
 
 #Below code will be useful for idempotent nature
 mysql -h db.daws78s1.online -uroot -p${mysql_root_password} -e 'show databases;' &>> $log_file
-if [ $? -eq 0 ]
+if [ $? -ne 0 ]
 then
     mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$log_file
     validate $? "MySQL Root password Setup"
