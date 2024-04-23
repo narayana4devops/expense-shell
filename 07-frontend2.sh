@@ -1,6 +1,8 @@
 #!/bin/bash
 
+chmod +x 06-common.sh
 source ./06-common.sh
+chmod -x 06-common.sh
 
 check_root
 
